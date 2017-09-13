@@ -8,7 +8,7 @@
          * @var string
          * @access private
          */
-        private $currentController;
+        //private $currentController;
 
         /**
          * Receives the name of the method contained
@@ -17,7 +17,7 @@
          * @var string
          * @access private
          */
-        private $currentAction;
+        //private $currentAction;
 
         /**
          * It receives the path of the page that will inform
@@ -31,13 +31,26 @@
         public function run(){
             $url = substr($_SERVER['PHP_SELF'], 10);
 
-            if(!isset($url)){
+            if(!empty($url)){
+                $url = explode('/', $url);
+                array_shift($url);
 
+                $currentController = $url[0].'Controller';
 
+                if(isset($url[1])){
+                    $currentAction = $url[1];
+                }else{
+                    $currentAction = 'index';
+                }
 
             }else{
-                $this->currentController = 'homeController';
-                $this->currentAction     = 'index';
+                $currentController = 'homeController';
+                $currentAction     = 'index';
             }
+
+            require_once 'core/controller.php';
+
+            $control = new $currentController();
+            $control->$currentAction();
         }
     }
