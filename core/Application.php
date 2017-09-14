@@ -28,17 +28,26 @@
          */
         private $pageNotFound;
 
+        private $urlPath;
+
+        public function getUrl(){
+            $url = explode('index.php', $_SERVER['PHP_SELF']);
+            $this->urlPath = end($url);
+        }
+
         public function run(){
-            $url = substr($_SERVER['PHP_SELF'], 10);
 
-            if(!empty($url)){
-                $url = explode('/', $url);
-                array_shift($url);
+            $this->getUrl();
 
-                $currentController = $url[0].'Controller';
+            if(!empty($this->urlPath)){
 
-                if(isset($url[1])){
-                    $currentAction = $url[1];
+                $this->urlPath = explode('/', $this->urlPath);
+                array_shift($this->urlPath);
+
+                $currentController = $this->urlPath[0].'Controller';
+
+                if(isset($this->urlPath[1])){
+                    $currentAction = $this->urlPath[1];
                 }else{
                     $currentAction = 'index';
                 }
