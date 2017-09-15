@@ -6,6 +6,6 @@
     class HomeController extends Controller{
 
         public function index(){
-            $this->loadView('home');
+            $this->loadTemplate('home');
         }
     }

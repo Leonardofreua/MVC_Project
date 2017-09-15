@@ -30,7 +30,13 @@
 
         private $urlPath;
 
-        public function getUrl(){
+        private $urlParams = array();
+
+        public function __construct(){
+            $this->run();
+        }
+
+        private function getUrl(){
             $url = explode('index.php', $_SERVER['PHP_SELF']);
             $this->urlPath = end($url);
         }
@@ -40,18 +46,22 @@
             $this->getUrl();
 
             if(!empty($this->urlPath)){
-
                 $this->urlPath = explode('/', $this->urlPath);
                 array_shift($this->urlPath);
 
                 $currentController = $this->urlPath[0].'Controller';
+                array_shift($this->urlPath);
 
-                if(isset($this->urlPath[1])){
-                    $currentAction = $this->urlPath[1];
+                if(isset($this->urlPath[0])){
+                    $currentAction = $this->urlPath[0];
+                    array_shift($this->urlPath);
                 }else{
                     $currentAction = 'index';
                 }
 
+                if(count($this->urlPath) > 0){
+                    $this->urlParams = $this->urlPath;
+                }
             }else{
                 $currentController = 'homeController';
                 $currentAction     = 'index';
@@ -60,6 +70,6 @@
             require_once 'core/controller.php';
 
             $control = new $currentController();
-            $control->$currentAction();
+            call_user_func_array(array($control, $currentAction), $this->urlParams);
         }
     }

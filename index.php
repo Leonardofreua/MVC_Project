@@ -12,4 +12,3 @@
     });
 
     $application = new Application();
-    $application->run();
