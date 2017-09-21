@@ -67,7 +67,7 @@
                 $currentAction     = 'index';
             }
 
-            require_once 'core/controller.php';
+            require_once 'core/Controller.php';
 
             $control = new $currentController();
             call_user_func_array(array($control, $currentAction), $this->urlParams);

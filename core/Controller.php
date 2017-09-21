@@ -1,26 +1,28 @@
 <?php
 
-class Controller{
+    namespace MVC_Project\core;
 
-    public function loadView($viewName, $viewData = array()){
-        extract($viewData);
-        include 'views/'.$viewName.'.php';
-    }
+    class Controller{
 
-    public function loadTemplate($viewName, $viewData = array()){
-        include 'views/templates/template.php';
-    }
+        public function loadView($viewName, $viewData = array()){
+            extract($viewData);
+            include 'views/'.$viewName.'.php';
+        }
 
-    public function loadViewInTemplate($viewName, $viewData = array()){
-        extract($viewData);
-        include 'views/'.$viewName.'.php';
-    }
+        public function loadTemplate($viewName, $viewData = array()){
+            include 'views/templates/template.php';
+        }
 
-    public function loadHeader(){
-        include 'views/templates/header.php';
-    }
+        public function loadViewInTemplate($viewName, $viewData = array()){
+            extract($viewData);
+            include 'views/'.$viewName.'.php';
+        }
 
-    public function loadFooter(){
-        include 'views/templates/footer.php';
+        public function loadHeader(){
+            include 'views/templates/header.php';
+        }
+
+        public function loadFooter(){
+            include 'views/templates/footer.php';
+        }
     }
-}
