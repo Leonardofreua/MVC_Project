@@ -1,4 +1,6 @@
 <?php
+    require 'lib/Config.php';
+
     spl_autoload_register(function($class){
         if(strpos($class, 'Controller') !== false){
             if(file_exists('controllers/'.$class.'.php')){

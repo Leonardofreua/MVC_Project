@@ -1,22 +1,15 @@
 <?php /** General Settings **/
 
-    namespace MVC_Project\lib;
+    define('ENVIRONMENT', 'development');
 
-    class Config{
-
-        public function __construct(){
-            require 'environment.php';
-        }
-
-        public function setSettings($config = array()){
-            if(ENVIRONMENT == "development"){
-                $config['dbname'] = 'pdo';
-                $config['host']   = 'localhost';
-                $config['dbuser'] = 'root';
-                $config['passwd'] = '';
-
-                error_reporting(E_ALL);
-                ini_set("display_errors", 1);
-            }
-        }
+    if (ENVIRONMENT == 'development' || ENVIRONMENT == 'dev') {
+        error_reporting(E_ALL);
+        ini_set("display_errors", 1);
     }
+
+    define('DB_TYPE', 'mysql');
+    define('DB_HOST', '127.0.0.1');
+    define('DB_NAME', 'pdo');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_CHARSET', 'utf8');
